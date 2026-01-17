@@ -1,0 +1,20 @@
+# vscode 프로젝트 만든 뒤 실행하는 스크립트 모음
+# 아래 내용은 모두 터미널( cmd ) 에서 실행할 명령이며, vscode로 프로젝트를 만든 뒤
+  터미널을 실행하여 구동한다.
+
+python -m venv venv
+( no output )
+
+# Windows
+.\venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
+( no output, but from now, cmd prompt will have venv env.)
+
+python --version
+(output) Python 3.13.9
+
+python -c "import struct; print(struct.calcsize('P') * 8)"
+(output)  64
+
+
