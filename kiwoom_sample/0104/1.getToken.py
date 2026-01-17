@@ -7,10 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 1. 접근토큰 발급 함수
-def fn_au10001(data):
-    host = 'https://api.kiwoom.com'  # 실전투자 URL
+def fn_au10001(data, base_url):
     endpoint = '/oauth2/token'
-    url = host + endpoint
+    url = base_url + endpoint
 
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -25,10 +24,9 @@ def fn_au10001(data):
     return response.json()
 
 # 2. 예시 조회 API 함수 (예: 계좌 잔고 조회)
-def fn_au20001(token):
-    host = 'https://api.kiwoom.com'  # 실전투자 URL
+def fn_au20001(token, base_url):
     endpoint = '/v1/account/balance'  # 예시 엔드포인트 (실제 API 문서 참고 필요)
-    url = host + endpoint
+    url = base_url + endpoint
 
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -49,13 +47,14 @@ def fn_au20001(token):
     return response.json()
 
 if __name__ == '__main__':
-    # 1) .env 파일에서 API 인증정보 로드
+    # 1) .env 파일에서 API 인증정보 및 설정값 로드
     appkey = os.getenv('KIWOOM_APPKEY')
     secretkey = os.getenv('KIWOOM_SECRETKEY')
+    api_base_url = os.getenv('KIWOOM_API_BASE_URL')
     
-    if not appkey or not secretkey:
-        print("오류: .env 파일에서 KIWOOM_APPKEY와 KIWOOM_SECRETKEY를 찾을 수 없습니다.")
-        print("프로젝트 루트 디렉토리에 .env 파일을 생성하고 API 인증정보를 입력하세요.")
+    if not appkey or not secretkey or not api_base_url:
+        print("오류: .env 파일에서 필수 환경변수를 찾을 수 없습니다.")
+        print("프로젝트 루트 디렉토리의 .env 파일을 확인하세요.")
         exit(1)
     
     # 2) 접근토큰 발급 요청 데이터
@@ -66,7 +65,7 @@ if __name__ == '__main__':
     }
 
     # 3) 토큰 발급
-    token_response = fn_au10001(data=params)
+    token_response = fn_au10001(data=params, base_url=api_base_url)
     access_token = token_response.get('token', '')
 
     if access_token:
@@ -75,6 +74,6 @@ if __name__ == '__main__':
         # 4) 토큰으로 조회 API 호출 (주석 해제 후 사용)
         # 조회 결과 예시 출력
         # 조회 API는 실제 API 문서에 맞게 엔드포인트와 요청 데이터를 수정하세요.
-        # response = fn_au20001(access_token)
+        # response = fn_au20001(access_token, api_base_url)
     else:
         print("Access Token 발급 실패")

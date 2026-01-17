@@ -7,11 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 1. 접근토큰 발급 함수
-def get_token(app_key, app_secret):
+def get_token(app_key, app_secret, base_url):
     """접근토큰을 발급받는 함수"""
-    host = 'https://api.kiwoom.com'  # 실전투자 URL
     endpoint = '/oauth2/token'
-    url = host + endpoint
+    url = base_url + endpoint
     
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -36,11 +35,10 @@ def get_token(app_key, app_secret):
         return None
 
 # 2. 계좌평가잔고내역요청 함수
-def get_account_balance(token, data, cont_yn='N', next_key=''):
+def get_account_balance(token, data, base_url, cont_yn='N', next_key=''):
     """계좌평가잔고내역을 조회하는 함수"""
-    host = 'https://api.kiwoom.com'  # 실전투자
     endpoint = '/api/dostk/acnt'
-    url = host + endpoint
+    url = base_url + endpoint
 
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -63,17 +61,17 @@ if __name__ == '__main__':
     # --- .env 파일에서 API 인증정보 로드 ---
     MY_APP_KEY = os.getenv('KIWOOM_APPKEY')
     MY_APP_SECRET = os.getenv('KIWOOM_SECRETKEY')
+    API_BASE_URL = os.getenv('KIWOOM_API_BASE_URL')
     
-    if not MY_APP_KEY or not MY_APP_SECRET:
-        print("오류: .env 파일에서 KIWOOM_APPKEY와 KIWOOM_SECRETKEY를 찾을 수 없습니다.")
-        print("프로젝트 루트 디렉토리에 .env 파일을 생성하고 API 인증정보를 입력하세요.")
+    if not MY_APP_KEY or not MY_APP_SECRET or not API_BASE_URL:
+        print("오류: .env 파일에서 필수 환경변수를 찾을 수 없습니다.")
+        print("프로젝트 루트 디렉토리의 .env 파일을 확인하세요.")
         exit(1)
 
     # -------------------------
 
     # 1. 접근토큰 발급
-    access_token = get_token(MY_APP_KEY, MY_APP_SECRET)
-
+    access_token = get_token(MY_APP_KEY, MY_APP_SECRET, API_BASE_URL)
     # 2. 토큰 발급 성공 시 잔고 조회 실행
     if access_token:
         print(f"\n발급된 Access Token: {access_token[:15]}...") # 토큰 일부만 출력
@@ -85,6 +83,6 @@ if __name__ == '__main__':
         }
 
         # 3. 잔고 조회 API 호출
-        get_account_balance(token=access_token, data=params)
+        get_account_balance(token=access_token, data=params, base_url=API_BASE_URL)
     else:
         print("\nAccess Token 발급에 실패하여 잔고 조회를 실행할 수 없습니다.")
