@@ -1,6 +1,11 @@
 # vscode 프로젝트 만든 뒤 실행하는 스크립트 모음
 # 아래 내용은 모두 터미널( cmd ) 에서 실행할 명령이며, vscode로 프로젝트를 만든 뒤
   터미널을 실행하여 구동한다.
+# python 설치는 선행하자. windows store에서 찾아 설치할 수 있다.
+
+# pip 및 관련 라이브러리 설치
+python.exe -m pip install --upgrade pip
+pip install requests pandas python-dotenv
 
 python -m venv venv
 ( no output )
