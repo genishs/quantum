@@ -1,4 +1,5 @@
 from core.api_handler import KiwoomREST
+import json
 
 def main():
     print("="*30)
@@ -7,11 +8,18 @@ def main():
 
     # 브로커 객체 생성 (자동으로 토큰 발급 시도)
     broker = KiwoomREST()
-    
+
+    if broker.is_paper_trading:
+        print("\n********* 모의 투자용 *********" )
+    else:
+        print("\n********* 실거래용 *********" )
+
     # 삼성전자(005930) 가격 조회 테스트
     print("\n[1] 호가 조회:")
     price_info = broker.get_price("005930")
-    print(f"결과: {price_info}")
+    #print(f"결과: {price_info}")
+    pretty = json.dumps(price_info, indent=2, ensure_ascii=False)
+    print(pretty)
     
     # 삼성전자(005930) 실시간 호가 조회 테스트
     print("\n[2] 실시간 호가 조회:")

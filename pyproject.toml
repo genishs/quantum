@@ -7,5 +7,6 @@ requires-python = ">=3.13"
 dependencies = [
     "python-dotenv>=1.2.1",
     "requests>=2.32.5",
+    "timedelta>=2020.12.3",
     "websocket-client>=1.9.0",
 ]
