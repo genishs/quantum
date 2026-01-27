@@ -1,0 +1,13 @@
+# 실거래 / 모의 투자 상관없이 모두 쓰이는 설정 정보
+[default]
+is_paper_trading = "True" # True: 모의 투자, False: 실거래
+
+# 실거래 api 호출 관련 설정 정보
+[real_trading]
+base_url = "https://api.kiwoom.com"
+api_key_file = "keys/api_keys_real_trading.toml" # api_keys_real_trading_sample.toml 복사해서 만드세요. 인생 꼬이기 싫으시면 이 파일은 절대 github에 공표하지 말 것!
+
+# 모의 투자 api 호출 관련 설정 정보
+[paper_trading]
+base_url = "https://mockapi.kiwoom.com"
+api_key_file = "keys/api_keys_paper_trading.toml" # api_keys_paper_trading_sample.toml 복사해서 만드세요. 인생 꼬이기 싫으시면 이 파일은 절대 github에 공표하지 말 것!

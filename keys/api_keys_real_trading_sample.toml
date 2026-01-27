@@ -1,0 +1,13 @@
+####################################################################
+#      api_keys_real_trading.toml은 이 파일 복사해서 만드세요.      #
+####################################################################
+
+# 실거래용 API 키 정보
+[real_trading]
+# api key 발급에 필요한 정보. 키움 rest api 개발자 사이트에서 신청하여 받는다.
+app_key = "<<사용자의 실거래용 access token 발급 시 쓰는 app key>>"
+app_secret = "<<사용자의 실거래용 access token 발급 시 쓰는  app_secret>>"
+
+# 키움 rest api 호출 시 http 요청 헤더의 Authentication 필드에 넣어야 할 값.
+access_token = "<<사용자의 실거래용 access token>>"
+access_token_expiration_datetime = "<<사용자의 실거래용 access token 만료 일시>>" # 키 발급 api 응답의 expires_dt 필드 값을 그대로 쓰시면 됩니다.

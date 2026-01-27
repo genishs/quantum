@@ -1,5 +1,6 @@
-# Environment variables
-.env
+# 키 파일
+api_keys_paper_trading.toml
+api_keys_real_trading.toml
 
 # Python
 __pycache__/
